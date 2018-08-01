@@ -1,20 +1,37 @@
-<!DOCTYPE html>
+<!Doctype html>
 <html>
-    <head><meta charset="ISO-8859-1"></head>
-    <body>
-        <h1>Create an employee</h1>
-        <form method="get" action="EmployeeServlet.employeeDo">
+<link
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="..\css\main.css">
+<head>
+<meta charset="ISO-8859-1">
+<title>Welcome</title>
+</head>
+<body>
+	<nav class="navbar navbar-inverse">
+		<ul class="nav nav-tabs">
+			<span class="label label-primary" id="welcome-card">WELCOME</span>
+			<li role="presentation" class="active"><a href="#">Home</a></li>
+			<li role="presentation" class="active"><a href="#">Profile</a></li>
+			<li role="presentation" class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" 
+                role="button" aria-haspopup="true" aria-expanded="false">
+                    Requests<span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                        <li><a href="#">Create New</a></li>
+                        <li><a href="#">View Pending</a></li>
+                        <li><a href="#">View Closed</a></li>
+                </ul>
+            </li>
+		</ul>
+	</nav>
+	
+	<script src="..\javascript\main.js"></script>
 
-            <label for="name">Enter your full name: </label>
-            <input type="text" id="name" name="name">
-            <label for="name">Enter your age: </label>
-            <input type="number" id="age" name="age">
-            <label for="name">Enter your username: </label>
-            <input type="text" id="username" name="username">
-            <label for="name">Enter your password: </label>
-            <input type="text" id="password" name="password">
-            <input type="submit" value="SUBMIT">
+</body>
 
-        </form>
-    </body>
 </html>

@@ -5,6 +5,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import RequestDAO.RequestModel;
 import Utilities.Connector;
@@ -35,6 +38,9 @@ public class EmployeeImpl implements EmployeeDAO {
 			p.setString(2, password);
 			
 			ResultSet rs = p.executeQuery();
+			if(rs == null) {
+				return null;
+			}
 			while(rs.next()) {
 				return new EmployeeModel(
 						rs.getInt("e_id"),
@@ -42,8 +48,8 @@ public class EmployeeImpl implements EmployeeDAO {
 						rs.getString("username"),
 						rs.getString("password"),
 						rs.getInt("age"),
-						rs.getInt("img_id"),
-						rs.getInt("access")
+						rs.getInt("i_id"),
+						rs.getInt("access_level")
 						);
 			}
 		} catch(SQLException er) {
@@ -83,15 +89,15 @@ public class EmployeeImpl implements EmployeeDAO {
 			Connection conn = Connector.getConnection();
 			String sql = "update employees set i_id=?, name=?, username=?, password=?, age=?, access_level=? where e_id=?";
 			
-			CallableStatement cs = conn.prepareCall(sql);
-			cs.setString(1, e.getName());
-			cs.setString(2, e.getUsername());
-			cs.setString(3, e.getPassword());
-			cs.setInt(4, e.getAge());
-			cs.setInt(5, e.getAccess());
-			cs.setInt(6, e.getImg_id());
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, e.getName());
+			ps.setString(2, e.getUsername());
+			ps.setString(3, e.getPassword());
+			ps.setInt(4, e.getAge());
+			ps.setInt(5, e.getAccess());
+			ps.setInt(6, e.getImg_id());
 			
-			return cs.executeQuery() != null;
+			return ps.executeQuery() != null;
 			
 		} catch(SQLException er) {
 			er.printStackTrace();
@@ -100,9 +106,20 @@ public class EmployeeImpl implements EmployeeDAO {
 	}
 
 	@Override
-	public boolean viewEmployee(EmployeeModel e) {
-		// TODO Auto-generated method stub
-		return false;
+	public String viewEmployee(EmployeeModel e) {
+		try {
+			Connection conn = Connector.getConnection();
+			String sql = "select * from employees where e_id=?";
+			
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, e.getE_id());
+			
+			
+			
+		} catch(SQLException er) {
+			er.printStackTrace();
+		}
+		return "";
 	}
 
 	@Override
@@ -118,15 +135,15 @@ public class EmployeeImpl implements EmployeeDAO {
 	}
 
 	@Override
-	public boolean viewPendingRequests(EmployeeModel e) {
+	public String viewPendingRequests(EmployeeModel e) {
 		// TODO Auto-generated method stub
-		return false;
+		return "";
 	}
 
 	@Override
-	public boolean viewCompletedRequests(EmployeeModel e) {
+	public String viewCompletedRequests(EmployeeModel e) {
 		// TODO Auto-generated method stub
-		return false;
+		return "";
 	}
 
 }

@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import EmployeeDAO.EmployeeModel;
+//import EmployeeDAO.EmployeeModel;
 import EmployeeDAO.EmployeeService;
 
 public class EmployeeServlet extends HttpServlet {
@@ -17,10 +17,14 @@ public class EmployeeServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int age = Integer.parseInt(request.getParameter("age"));
-		EmployeeModel e = new EmployeeModel(-1, request.getParameter("name"), request.getParameter("username"), request.getParameter("password"), age, -1, 0);
-		
-		response.getWriter().append(EmployeeService.getES().createEmployee(e)+"");
+		//System.out.println(request.getRequestURI());
+		//response.getWriter().append(EmployeeService.handleRequest(request));
+		//response.getWriter().append(request.getSession().getAttribute("currEmployee").toString());
+		if(request.getParameter("check") != null) {
+			response.getWriter().append(request.getServletContext().getAttribute("currUser").toString());
+		} else {
+			request.getRequestDispatcher(EmployeeService.handleRequest(request)).forward(request, response);
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
