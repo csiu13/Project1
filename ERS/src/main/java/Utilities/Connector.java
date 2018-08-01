@@ -14,7 +14,8 @@ public class Connector {
 		
 		try {
 			Properties props = new Properties();
-			in  = new FileInputStream("src/main/resources/connections.properties");
+			//System.out.println(System.getProperty("user.dir"));
+			in  = new FileInputStream("C:\\my_git_ripos\\christopher_siu_project1\\ERS\\src\\main\\resources\\connections.properties");
 			props.load(in);
 			
 			Class.forName("oracle.jdbc.driver.OracleDriver");

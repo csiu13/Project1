@@ -57,7 +57,7 @@ public class EmployeeImpl implements EmployeeDAO {
 	public boolean createEmployee(EmployeeModel e) {
 		try {
 			Connection conn = Connector.getConnection();
-			String sql = "exec add_employee (?, ?, ?, ?, ?, ?)";
+			String sql = "call add_employee (?, ?, ?, ?, ?, ?, ?)";
 			
 			CallableStatement cs = conn.prepareCall(sql);
 			cs.setInt(1, e.getImg_id());
@@ -79,7 +79,23 @@ public class EmployeeImpl implements EmployeeDAO {
 
 	@Override
 	public boolean updateEmployee(EmployeeModel e) {
-		// TODO Auto-generated method stub
+		try {
+			Connection conn = Connector.getConnection();
+			String sql = "update employees set i_id=?, name=?, username=?, password=?, age=?, access_level=? where e_id=?";
+			
+			CallableStatement cs = conn.prepareCall(sql);
+			cs.setString(1, e.getName());
+			cs.setString(2, e.getUsername());
+			cs.setString(3, e.getPassword());
+			cs.setInt(4, e.getAge());
+			cs.setInt(5, e.getAccess());
+			cs.setInt(6, e.getImg_id());
+			
+			return cs.executeQuery() != null;
+			
+		} catch(SQLException er) {
+			er.printStackTrace();
+		}
 		return false;
 	}
 
