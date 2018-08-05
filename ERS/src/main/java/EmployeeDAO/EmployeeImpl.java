@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -36,6 +38,8 @@ public class EmployeeImpl implements EmployeeDAO {
 			PreparedStatement p = conn.prepareStatement(sql);
 			p.setString(1, username);
 			p.setString(2, password);
+//			System.out.println(username);
+//			System.out.println(password);
 			
 			ResultSet rs = p.executeQuery();
 			if(rs == null) {
@@ -84,7 +88,7 @@ public class EmployeeImpl implements EmployeeDAO {
 	}
 
 	@Override
-	public boolean updateEmployee(EmployeeModel e) {
+	public EmployeeModel updateEmployee(EmployeeModel e) {
 		try {
 			Connection conn = Connector.getConnection();
 			String sql = "update employees set i_id=?, name=?, username=?, password=?, age=?, access_level=? where e_id=?";
@@ -97,52 +101,63 @@ public class EmployeeImpl implements EmployeeDAO {
 			ps.setInt(5, e.getAccess());
 			ps.setInt(6, e.getImg_id());
 			
-			return ps.executeQuery() != null;
+			return ps.executeQuery() != null ? e : null;
 			
 		} catch(SQLException er) {
 			er.printStackTrace();
 		}
-		return false;
+		return null;
 	}
 
 	@Override
-	public String viewEmployee(EmployeeModel e) {
+	public ArrayList<EmployeeModel> viewEmployees() {
 		try {
 			Connection conn = Connector.getConnection();
-			String sql = "select * from employees where e_id=?";
+			String sql = "select * from employees order by e_id asc";
 			
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setInt(1, e.getE_id());
+			ResultSet rs = ps.executeQuery();
+			if(rs == null) {
+				return null;
+			}
+			ArrayList<EmployeeModel> list = new ArrayList<EmployeeModel>();
+			while(rs.next()) {
+				list.add(new EmployeeModel(
+						rs.getInt("e_id"),
+						rs.getString("name"),
+						rs.getString("username"),
+						rs.getString("password"),
+						rs.getInt("age"),
+						rs.getInt("i_id"),
+						rs.getInt("access_level")
+						));
+			}
 			
-			
+			return list; 
 			
 		} catch(SQLException er) {
 			er.printStackTrace();
 		}
-		return "";
+		return null;
 	}
 
 	@Override
 	public boolean makeRequest(EmployeeModel e, RequestModel r) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean approveRequest(EmployeeModel e, RequestModel r) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public String viewPendingRequests(EmployeeModel e) {
-		// TODO Auto-generated method stub
 		return "";
 	}
 
 	@Override
 	public String viewCompletedRequests(EmployeeModel e) {
-		// TODO Auto-generated method stub
 		return "";
 	}
 

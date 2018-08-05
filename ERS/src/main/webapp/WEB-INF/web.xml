@@ -7,7 +7,7 @@
   <servlet>
   	<servlet-name>EmployeeServlet</servlet-name>
   	<display-name>EmployeeServlet</display-name>
-  	<description></description>
+  	<description></description>  	
   	<servlet-class>Servlets.EmployeeServlet</servlet-class>
   </servlet>
   <servlet>

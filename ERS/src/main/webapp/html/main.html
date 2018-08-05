@@ -1,36 +1,57 @@
-<!Doctype html>
 <html>
-<link
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="..\css\main.css">
+
 <head>
-<meta charset="ISO-8859-1">
-<title>Welcome</title>
+	<link rel="stylesheet" type="text/css" href="..\css\main.css">
 </head>
+
 <body>
-	<nav class="navbar navbar-inverse">
+	<nav class="navbar navbar">
 		<ul class="nav nav-tabs">
 			<span class="label label-primary" id="welcome-card">WELCOME</span>
-			<li role="presentation" class="active"><a href="#">Home</a></li>
-			<li role="presentation" class="active"><a href="#">Profile</a></li>
+			<li role="presentation" class="active" id="home">
+				<a>Home</a>
+			</li>
+			<li role="presentation" class="active" id="employee-profile">
+				<a href="#">Profile</a>
+			</li>
+			<li role="presentation" class="dropdown" id="manager-profile">
+				<a class="dropdown-toggle" id="empDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+					Profile
+					<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu" aria-labelledby="empDropdown">
+					<li>
+						<a href="employeeProfile.html">View Profile</a>
+					</li>
+					<li>
+						<a href="EmployeeList.html">Employee List</a>
+					</li>
+				</ul>
+			</li>
 			<li role="presentation" class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#" 
-                role="button" aria-haspopup="true" aria-expanded="false">
-                    Requests<span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                        <li><a href="#">Create New</a></li>
-                        <li><a href="#">View Pending</a></li>
-                        <li><a href="#">View Closed</a></li>
-                </ul>
-            </li>
+				<a class="dropdown-toggle" id="requestDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+					Requests
+					<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu" aria-labelledby="requestDropdown">
+					<li>
+						<a href="#">Create New</a>
+					</li>
+					<li>
+						<a href="#">View Requests</a>
+					</li>
+				</ul>
+			</li>
+			<li role="presentation" class="active" id="logout">
+				<a href="login.html">Logout</a>
+			</li>
 		</ul>
 	</nav>
-	
+	<div id="main"></div>
+
 	<script src="..\javascript\main.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 </body>
 

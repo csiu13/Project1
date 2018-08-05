@@ -2,22 +2,24 @@
 <html>
 
 <head>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-        crossorigin="anonymous">
-    <meta charset="ISO-8859-1">
+	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <title>Login</title>
 </head>
 
-<body>
+<body id="body">
     <h1>Login</h1>
-    <form method="post" action="login.employeeDo">
+    <form method="post" id="login-form">
         <label for="username">USERNAME</label>
-        <input type="text" name="username" id="username">
+        <input type="text" name="username" id="username" placeholder="Username">
         <label for="password">PASSWORD</label>
-        <input type="password" name="password" id="password">
+        <input type="password" name="password" id="password" placeholder="Password">
         <br>
-        <input type="submit" id="submit" value="login">
+        <input type="submit" id="submit" value="Login">
     </form>
+    <div class="alert alert-warning" style="display:none" id="login-fail"><strong>Uh oh!</strong> Incorrect username or password.</div>
+    <script src="..\javascript\login.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 
 </html>

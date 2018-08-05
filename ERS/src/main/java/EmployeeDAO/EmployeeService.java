@@ -1,5 +1,7 @@
 package EmployeeDAO;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 
 import Logger.LoggingTool;
@@ -25,34 +27,60 @@ public class EmployeeService {
 	}
 	
 	public static String handleRequest(HttpServletRequest request) {
-		String service = request.getRequestURI().replace("/ERS/html/", "");
+		String service = request.getRequestURI().replace("/ERS/", "");
+		int index = service.indexOf("?");
+		if(index > -1) {
+			service = service.substring(0, index);
+		}
 		//System.out.println(service);
 		switch(service) {
 		
 			case("createEmployee.employeeDo"):
-				if(!getES().createEmployee(request)) {
+				EmployeeModel e = getES().createEmployee(request);
+				if(e == null) {
 					//System.out.println("CREATION ERROR");
 					LoggingTool.logError("CREATION ERROR");
-					return "CREATION ERROR";
+					return "html/error.html";
 				} else {
 					//System.out.println("CREATION SUCCESS");
 					LoggingTool.logDebug("CREATION SUCCESS");
-					return "CREATION SUCCESS";
+					request.getServletContext().setAttribute("currUser", gson.toJson(e));
+					return "html/main.html";
 				}
 			
 			case("login.employeeDo"):
-				EmployeeModel e = getES().getEmployee(request);
+				e = getES().getEmployee(request);
 				if(e != null) {
 					LoggingTool.logDebug("LOGIN SUCCESS");
 					request.getServletContext().setAttribute("currUser", gson.toJson(e));
-					return "main.html";
+					return "html/main.html";
 				} else {
 					LoggingTool.logDebug("LOGIN ERROR");
-					return "LOGIN FAIL";
+					return "fail";
 				}
 				
-			case("viewAllEmployees.employeeDo"):
-				
+			case("viewEmployees.employeeDo"):
+				ArrayList<EmployeeModel> list = getES().viewEmployees();
+				if(list != null) {
+					LoggingTool.logDebug("VIEW EMPLOYEES SUCCESS");
+					String eList = gson.toJson(list);
+					request.getServletContext().setAttribute("employeeList", eList);
+					return eList;
+				} else {
+					LoggingTool.logError("VIEW EMPLOYEES ERROR");
+					return "html/error.html";
+				}
+			
+			case("updateEmployee.employeeDo"):
+				e = getES().updateEmployee(request);
+				if(e != null) {
+					request.getServletContext().setAttribute("currUser", gson.toJson(e));
+					LoggingTool.logDebug("UPDATE SUCCESS");
+					return gson.toJson(e);
+				} else {
+					LoggingTool.logError("UPDATE ERROR");
+					return "html/error.html";
+				}
 		
 		}
 		
@@ -64,16 +92,24 @@ public class EmployeeService {
 		String password = request.getParameter("password");
 		return EmployeeImpl.getEI().getEmployee(username, password);
 	}
-	public boolean createEmployee(HttpServletRequest request) {
+	public EmployeeModel createEmployee(HttpServletRequest request) {
 		int age = Integer.parseInt(request.getParameter("age"));
 		EmployeeModel e = new EmployeeModel(-1, request.getParameter("name"), request.getParameter("username"), request.getParameter("password"), age, -1, 0);
-		return EmployeeImpl.getEI().createEmployee(e);
+		return EmployeeImpl.getEI().createEmployee(e) ? e : null;
 	}
-	public boolean updateEmployee(EmployeeModel e) {
+	public EmployeeModel updateEmployee(HttpServletRequest request) {
+		EmployeeModel curr = gson.fromJson((String)request.getServletContext().getAttribute("currUser"), EmployeeModel.class);
+		int eid = curr.getE_id();
+		int access = curr.getAccess();
+		String name = request.getParameter("name");
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		int age = Integer.parseInt(request.getParameter("age"));
+		EmployeeModel e = new EmployeeModel(eid, name, username, password, age, -1, access);
 		return EmployeeImpl.getEI().updateEmployee(e);
 	}
-	public String viewEmployee(EmployeeModel e) {
-		return EmployeeImpl.getEI().viewEmployee(e);
+	public ArrayList<EmployeeModel> viewEmployees() {
+		return EmployeeImpl.getEI().viewEmployees();
 	}
 	public boolean makeRequest(EmployeeModel e, RequestModel r) {
 		return EmployeeImpl.getEI().makeRequest(e, r);

@@ -18,12 +18,17 @@ public class EmployeeServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//System.out.println(request.getRequestURI());
-		//response.getWriter().append(EmployeeService.handleRequest(request));
-		//response.getWriter().append(request.getSession().getAttribute("currEmployee").toString());
 		if(request.getParameter("check") != null) {
-			response.getWriter().append(request.getServletContext().getAttribute("currUser").toString());
+			response.getWriter().append((String)request.getServletContext().getAttribute("currUser"));
 		} else {
-			request.getRequestDispatcher(EmployeeService.handleRequest(request)).forward(request, response);
+			String res = EmployeeService.handleRequest(request);
+			//System.out.println(res);
+			if(res.indexOf(".") != -1) {
+				request.getRequestDispatcher(res).forward(request, response);
+			} else {
+				//System.out.println("WHAT");
+				response.getWriter().append(res);
+			}
 		}
 	}
 
