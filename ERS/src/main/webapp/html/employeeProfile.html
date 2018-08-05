@@ -2,34 +2,45 @@
 
 <head>
     <link rel="stylesheet" type="text/css" href="..\css\main.css">
-	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
 </head>
 
 <body>
-    <button id="backbutton"><span class="glpyhicon glyphicon-arrow-left"></span><a href="main.html">BACK</a></button>
+    <button id="backbutton" class="btn btn-secondary"></span><a href="main.html">BACK</a></button>
     <h1>PROFILE</h1>
 
     <div>
-        <img id="profile-pic">
-        <button id="update-button" disabled="true">Update</button>
+        <!-- <img id="profile-pic"> -->
+        <button id="update-button" class="btn btn-primary" onclick="updateEmployee()">Update</button>
+        <div class="alert alert-warning" id="password-warning" style='visibility:hidden'>Careful! You are about to change your password!</div>
     </div>
     <div>
-        <h3>Name: </h3><input id="employee-name">
+        <label>Name: </label><h2 id="name-tag"></h2>
+        <br>
+        <label for="employee-name">Update Name: </label><input oninput="changeName('employee-name', 'name-tag')" id="employee-name" name="employee-name">
     </div>
     <div>
-        <h3>Userame: </h3><input id="employee-username">
+        <label>Username: </label><h2 id="username-tag"></h2>
+        <br>
+        <label for="employee-username">Update Username: </label><input oninput="changeName('employee-username', 'username-tag')" id="employee-username" name="employee-username">
     </div>
     <div>
-        <h3>Password: </h3><input id="employee-password">
+        <label>Password: </label><h2 id="password-tag"></h2>
+        <br>
+        <label for="employee-password">Update Password: </label><input type="text" oninput="passwordWarning()" id="employee-password" name="employee-password">
     </div>
     <div>
-        <h3>Age: </h3><input id="employee-age">
+        <label>Age: </label><h2 id="age-tag"></h2>
+        <br>
+        <label for="employee-age">Update Age: </label><input oninput="changeName('employee-age', 'age-tag')" type="number" id="employee-age" name="employee-age">
     </div>
     <div>
-        <h3>Position: </h3><p id="employee-position"></p>
+        <label>Position: </label><h2 id="position-tag"></h2>
     </div>
     <script src="..\javascript\profile.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </body>
 </html>

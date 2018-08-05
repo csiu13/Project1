@@ -10,8 +10,8 @@ public interface EmployeeDAO {
 	public boolean createEmployee(EmployeeModel e);
 	public EmployeeModel updateEmployee(EmployeeModel e);
 	public ArrayList<EmployeeModel> viewEmployees();
-	public boolean makeRequest(EmployeeModel e, RequestModel r);
-	public boolean approveRequest(EmployeeModel e, RequestModel r);
+	public boolean makeRequest(RequestModel r);
+	public RequestModel approveRequest(int r, EmployeeModel e);
 	public String viewPendingRequests(EmployeeModel e);
 	public String viewCompletedRequests(EmployeeModel e);
 

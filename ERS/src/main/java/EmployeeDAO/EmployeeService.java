@@ -81,7 +81,25 @@ public class EmployeeService {
 					LoggingTool.logError("UPDATE ERROR");
 					return "html/error.html";
 				}
-		
+				
+			case("makeRequest.employeeDo"):
+				if(getES().makeRequest(request)) {
+					LoggingTool.logDebug("REQUEST CREATION SUCCESS");
+					return "html/main.html";
+				} else {
+					LoggingTool.logError("REQUEST CREATION ERROR");
+					return "html/error.html";
+				}
+			
+			case("approveRequest.employeeDo"):
+				RequestModel r = getES().approveRequest(request);
+				if(r != null) {
+					LoggingTool.logDebug("REQUEST APPROVAL SUCCESS");
+					return gson.toJson(r);
+				} else {
+					LoggingTool.logError("REQUEST APPROVAL ERROR");
+					return "fail";
+				}
 		}
 		
 		return "";
@@ -101,21 +119,35 @@ public class EmployeeService {
 		EmployeeModel curr = gson.fromJson((String)request.getServletContext().getAttribute("currUser"), EmployeeModel.class);
 		int eid = curr.getE_id();
 		int access = curr.getAccess();
-		String name = request.getParameter("name");
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		int age = Integer.parseInt(request.getParameter("age"));
+		String name = request.getParameter("name") == "" ? curr.getName() : request.getParameter("name");
+		String username = request.getParameter("username") == "" ? curr.getUsername() : request.getParameter("username");
+		String password = request.getParameter("password") == "" ? curr.getPassword() : request.getParameter("password");
+		int age = request.getParameter("age") == "" ? curr.getAge() : Integer.parseInt(request.getParameter("age"));
+		System.out.println(eid);
+		System.out.println(access);
+		System.out.println(name);
+		System.out.println(username);
+		System.out.println(password);
+		System.out.println(age);
+		
 		EmployeeModel e = new EmployeeModel(eid, name, username, password, age, -1, access);
 		return EmployeeImpl.getEI().updateEmployee(e);
 	}
 	public ArrayList<EmployeeModel> viewEmployees() {
 		return EmployeeImpl.getEI().viewEmployees();
 	}
-	public boolean makeRequest(EmployeeModel e, RequestModel r) {
-		return EmployeeImpl.getEI().makeRequest(e, r);
+	public boolean makeRequest(HttpServletRequest request) {
+		EmployeeModel curr = gson.fromJson((String)request.getServletContext().getAttribute("currUser"), EmployeeModel.class);
+		String requested = request.getParameter("requested");
+		String reason = request.getParameter("reason");
+		double amount = Double.parseDouble(request.getParameter("amount"));
+		RequestModel r = new RequestModel(-1, -1, curr.getE_id(), requested, null, reason, amount, 0);
+		return EmployeeImpl.getEI().makeRequest(r);
 	}
-	public boolean approveRequest(EmployeeModel e, RequestModel r) {
-		return EmployeeImpl.getEI().approveRequest(e, r);
+	public RequestModel approveRequest(HttpServletRequest request) {
+		EmployeeModel curr = gson.fromJson((String)request.getServletContext().getAttribute("currUser"), EmployeeModel.class);
+		int r_id = Integer.parseInt(request.getParameter("r_id"));
+		return EmployeeImpl.getEI().approveRequest(r_id, curr);
 	}
 	public String viewPendingRequests(EmployeeModel e) {
 		return EmployeeImpl.getEI().viewPendingRequests(e);

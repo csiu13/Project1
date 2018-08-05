@@ -1,14 +1,13 @@
 package RequestDAO;
 
-import java.util.Date;
-
 public class RequestModel {
 	
 	private int r_id;
 	private int m_id;
 	private int e_id;
-	private Date requested;
-	private Date completed;
+	private String requested;
+	private String completed;
+	private String reason;
 	private double amount;
 	private int status;
 	/**
@@ -27,13 +26,14 @@ public class RequestModel {
 	 * @param amount
 	 * @param status
 	 */
-	public RequestModel(int r_id, int m_id, int e_id, Date requested, Date completed, double amount, int status) {
+	public RequestModel(int r_id, int m_id, int e_id, String requested, String completed, String reason, double amount, int status) {
 		super();
 		this.r_id = r_id;
 		this.m_id = m_id;
 		this.e_id = e_id;
 		this.requested = requested;
 		this.completed = completed;
+		this.reason = reason;
 		this.amount = amount;
 		this.status = status;
 	}
@@ -55,17 +55,23 @@ public class RequestModel {
 	public void setE_id(int e_id) {
 		this.e_id = e_id;
 	}
-	public Date getRequested() {
+	public String getRequested() {
 		return requested;
 	}
-	public void setRequested(Date requested) {
+	public void setRequested(String requested) {
 		this.requested = requested;
 	}
-	public Date getCompleted() {
+	public String getCompleted() {
 		return completed;
 	}
-	public void setCompleted(Date completed) {
+	public void setCompleted(String completed) {
 		this.completed = completed;
+	}
+	public String getReason() {
+		return this.reason;
+	}
+	public void setReason(String reason) {
+		this.reason = reason;
 	}
 	public double getAmount() {
 		return amount;
