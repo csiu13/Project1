@@ -15,29 +15,35 @@
         <button id="update-button" class="btn btn-primary" onclick="updateEmployee()">Update</button>
         <div class="alert alert-warning" id="password-warning" style='visibility:hidden'>Careful! You are about to change your password!</div>
     </div>
-    <div>
-        <label>Name: </label><h2 id="name-tag"></h2>
-        <br>
-        <label for="employee-name">Update Name: </label><input oninput="changeName('employee-name', 'name-tag')" id="employee-name" name="employee-name">
+    <label>Name: </label><h2 id="name-tag"></h2>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Update Name: </span>
+        </div>
+        <input class="form-control" oninput="changeName('employee-name', 'name-tag')" id="employee-name" name="employee-name">
     </div>
-    <div>
-        <label>Username: </label><h2 id="username-tag"></h2>
-        <br>
-        <label for="employee-username">Update Username: </label><input oninput="changeName('employee-username', 'username-tag')" id="employee-username" name="employee-username">
+    <label>Username: </label><h2 id="username-tag"></h2>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+                <span class="input-group-text">Update Username: </span>
+        </div>
+        <input class="form-control" oninput="changeName('employee-username', 'username-tag')" id="employee-username" name="employee-username">
     </div>
+    <label>Password: </label><h2 id="password-tag"></h2>
     <div>
-        <label>Password: </label><h2 id="password-tag"></h2>
-        <br>
-        <label for="employee-password">Update Password: </label><input type="text" oninput="passwordWarning()" id="employee-password" name="employee-password">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Update Password: </span>
+        </div>     
+        <input class="form-control" type="text" oninput="passwordWarning()" id="employee-password" name="employee-password">
     </div>
+    <label>Age: </label><h2 id="age-tag"></h2>
     <div>
-        <label>Age: </label><h2 id="age-tag"></h2>
-        <br>
-        <label for="employee-age">Update Age: </label><input oninput="changeName('employee-age', 'age-tag')" type="number" id="employee-age" name="employee-age">
+        <div class="input-group-prepend">
+            <span class="input-group-text">Update Age: </span>
+        </div>
+        <input class="form-control" oninput="changeName('employee-age', 'age-tag')" type="number" id="employee-age" name="employee-age">
     </div>
-    <div>
-        <label>Position: </label><h2 id="position-tag"></h2>
-    </div>
+    <label>Position: </label><h2 id="position-tag"></h2>
     <script src="..\javascript\profile.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

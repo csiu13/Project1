@@ -4,7 +4,8 @@ window.onload = () => {
 	xhr.onreadystatechange = function() {
 	    if(xhr.readyState === 4 && xhr.status === 200) {
 	    	let currPerson = JSON.parse(xhr.responseText);
-	        document.getElementById("welcome-card").innerHTML = "Welcome, " + currPerson.name;
+			document.getElementById("welcome-card").innerHTML = "Welcome, " + currPerson.name;
+			document.getElementById('hello-card').innerHTML = "Hello, " + currPerson.name;
 	        if(currPerson.access > 0) {
 				document.getElementById("manager-profile").style.display = "inline";
 				document.getElementById("manager-viewAll").style.display = "inline";

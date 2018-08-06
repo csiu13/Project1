@@ -1,0 +1,12 @@
+#login-fail {
+    position: relative;
+    top: 25px;
+}
+.card-img-top {
+    height: 200px;
+    width: 500px;
+}
+.card {
+    position: relative;
+    left: 15px;
+}

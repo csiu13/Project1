@@ -23,6 +23,7 @@ window.onload = () => {
 							break;
 						case "access":
 							cell.innerHTML = employees[emp][key] == 1 ? "Manager" : "Employee";
+							cell.innerHTML = employees[emp][key] === -1 ? "Janitor" : "Employee";
 							row.appendChild(cell);
 							break;
 						default:
