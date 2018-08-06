@@ -166,7 +166,7 @@ public class EmployeeImpl implements EmployeeDAO {
 	}
 
 	@Override
-	public RequestModel approveRequest(int r_id, int approve, EmployeeModel e) {
+	public RequestModel approveRequest(int r_id, int approve, String completed, EmployeeModel e) {
 		try {
 			Connection conn = Connector.getConnection();
 			String sql = "select requests.*, employees.name from requests"
@@ -182,12 +182,13 @@ public class EmployeeImpl implements EmployeeDAO {
 			//System.out.println(rs.getInt("m_id"));
 			if(rs.getInt("m_id") == -1 && rs.getInt("status") == 0) {
 				System.out.println("into second sql");
-				sql = "update requests set m_id=?, status=? where r_id=?";
+				sql = "update requests set m_id=?, status=?, date_completed=? where r_id=?";
 
 				PreparedStatement ps2 = conn.prepareStatement(sql);
 				ps2.setInt(1, e.getE_id());
 				ps2.setInt(2, approve);
-				ps2.setInt(3, r_id);
+				ps2.setString(3, completed);
+				ps2.setInt(4, r_id);
 				
 				ResultSet rs1 = ps2.executeQuery();
 				while(rs1.next()) {

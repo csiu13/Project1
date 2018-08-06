@@ -11,7 +11,7 @@ public interface EmployeeDAO {
 	public EmployeeModel updateEmployee(EmployeeModel e);
 	public ArrayList<EmployeeModel> viewEmployees();
 	public boolean makeRequest(RequestModel r);
-	public RequestModel approveRequest(int r, int approve, EmployeeModel e);
+	public RequestModel approveRequest(int r, int approve, String completed, EmployeeModel e);
 	public ArrayList<RequestModel> viewAllRequests();
 	public ArrayList<RequestModel> viewMyRequests(int e_id);
 

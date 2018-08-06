@@ -182,7 +182,8 @@ public class EmployeeService {
 //		System.out.println(request.getParameter("approve"));
 		int r_id = Integer.parseInt(request.getParameter("r_id"));
 		int approve = Integer.parseInt(request.getParameter("approve"));
-		return EmployeeImpl.getEI().approveRequest(r_id, approve, curr);
+		String completed = request.getParameter("completed");
+		return EmployeeImpl.getEI().approveRequest(r_id, approve, completed, curr);
 	}
 	public ArrayList<RequestModel> viewMyRequests(HttpServletRequest request) {
 		EmployeeModel curr = gson.fromJson((String)request.getServletContext().getAttribute("currUser"), EmployeeModel.class);

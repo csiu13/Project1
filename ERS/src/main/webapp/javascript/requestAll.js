@@ -152,16 +152,21 @@ function approve(event) {
             let xhr2 = new XMLHttpRequest();
             xhr2.onreadystatechange = function() {
                 if(xhr2.readyState === 4 && xhr2.status === 200) {
-                    let requests = JSON.parse(xhr.responseText);
-                    for(let req in requests) {
-                        if(requests[req].r_id === r.r_id) {
-                            let span = document.getElementById(req+"-status");
-                            span.setAttribute("class", event === 'decline' ? "badge badge-danger" : "badge badge-success");
-                            span.setAttribute("innerHTML", event === 'decline' ? "DECLINED" : "ACCEPTED");
-                            
-                            alert("Request has been successfully " + event +"d! Please refresh page to see effects! (WIP)");
-                        }
+                    if(xhr.responseText !== "fail") {
+                        alert("Request has been successfully " + event +"d! Please refresh page to see effects! (WIP)");
                     }
+                    // let requests = JSON.parse(xhr.responseText);
+                    // //console.log(requests);
+                    // for(let req in requests) {
+                    //     //console.log(req);
+                    //     if(requests[req].r_id === r.r_id) {
+                    //         let span = document.getElementById(req+"-status");
+                    //         span.setAttribute("class", event === 'decline' ? "badge badge-danger" : "badge badge-success");
+                    //         span.setAttribute("innerHTML", event === 'decline' ? "DECLINED" : "ACCEPTED");
+                            
+                            
+                    //     }
+                    // }
                 } 
             }
             xhr2.open('get', '../*.employeeDo?checkList=true', true);
@@ -171,7 +176,7 @@ function approve(event) {
      let throwaway = document.getElementById('popup').throwaway;
      let link = document.getElementById(throwaway +'-rid').innerHTML;
      let a = event === 'approve' ? 1 : -1;
-     console.log(link + " " + throwaway + " " + a);
-     xhr.open('get', '../approveRequest.employeeDo?r_id='+link+'&approve='+a, true);
+     //console.log(link + " " + throwaway + " " + a);
+     xhr.open('get', '../approveRequest.employeeDo?r_id='+link+'&approve='+a+'&completed='+JSON.stringify(new Date()), true);
      xhr.send();
 }
