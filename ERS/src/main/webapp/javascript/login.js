@@ -33,7 +33,8 @@ function checkLogin(e) {
             	        }
             	    }
             	}
-            	xhr.open('get', '../*.employeeDo?check=true', true);
+            	let date = JSON.stringify(new Date());
+            	xhr.open('get', '../*.employeeDo?check=true&date='+date, true);
             	xhr.send();
             }
         }

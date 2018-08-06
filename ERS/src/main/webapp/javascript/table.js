@@ -22,8 +22,12 @@ window.onload = () => {
 							row.appendChild(cell);
 							break;
 						case "access":
-							cell.innerHTML = employees[emp][key] == 1 ? "Manager" : "Employee";
-							cell.innerHTML = employees[emp][key] === -1 ? "Janitor" : "Employee";
+							//console.log(employees[emp][key]);
+							if(employees[emp][key] === -1) {
+								cell.innerHTML = "Janitor";
+							} else {
+								cell.innerHTML = employees[emp][key] == 1 ? "Manager" : "Employee";
+							}
 							row.appendChild(cell);
 							break;
 						default:
@@ -43,10 +47,16 @@ window.onload = () => {
 
 function createRequestTable(event) {
 	var index = event.target.parentNode.id;
+	var table = document.getElementById(index+"-rTable");
+	if(table.childElementCount > 0) {
+		table.style.display = table.style.display === 'none' ? 'inline' : 'none';
+		console.log(table.display);
+		return;
+	}
 	let xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
 		if(xhr.readyState === 4 && xhr.status === 200) {
-			console.log(index);
+			//console.log(index);
             let table = document.getElementById(index+"-rTable");
             //console.log(xhr.responseText);
 			let requests = JSON.parse(xhr.responseText);

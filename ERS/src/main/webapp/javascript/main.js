@@ -1,5 +1,5 @@
 window.onload = () => {
-	console.log("hello");
+	//console.log("hello");
 	let xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
 	    if(xhr.readyState === 4 && xhr.status === 200) {
@@ -17,7 +17,8 @@ window.onload = () => {
 	        }
 	    }
 	}
-	xhr.open('get', '../*.employeeDo?check=true', true);
+	let date = JSON.stringify(new Date());
+	xhr.open('get', '../*.employeeDo?check=true&date='+date, true);
 	xhr.send();
 }
 
