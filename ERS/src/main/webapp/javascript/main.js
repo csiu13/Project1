@@ -6,10 +6,12 @@ window.onload = () => {
 	    	let currPerson = JSON.parse(xhr.responseText);
 	        document.getElementById("welcome-card").innerHTML = "Welcome, " + currPerson.name;
 	        if(currPerson.access > 0) {
-	        	document.getElementById("manager-profile").style.display = "inline";
+				document.getElementById("manager-profile").style.display = "inline";
+				document.getElementById("manager-viewAll").style.display = "inline";
 	        	document.getElementById("employee-profile").style.display = "none";
 	        } else {
-	        	document.getElementById("manager-profile").style.display = "none";
+				document.getElementById("manager-profile").style.display = "none";
+				document.getElementById("manager-viewAll").style.display = "none";
 	        	document.getElementById("employee-profile").style.display = "inline";
 	        }
 	    }

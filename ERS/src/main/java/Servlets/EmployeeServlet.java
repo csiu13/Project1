@@ -20,10 +20,12 @@ public class EmployeeServlet extends HttpServlet {
 		//System.out.println(request.getRequestURI());
 		if(request.getParameter("check") != null) {
 			response.getWriter().append((String)request.getServletContext().getAttribute("currUser"));
+		} else if(request.getParameter("checkList") != null){
+			response.getWriter().append((String)request.getServletContext().getAttribute("reqList"));
 		} else {
 			String res = EmployeeService.handleRequest(request);
 			//System.out.println(res);
-			if(res.indexOf(".") != -1) {
+			if(res.indexOf("/") != -1) {
 				request.getRequestDispatcher(res).forward(request, response);
 			} else {
 				//System.out.println("WHAT");

@@ -60,10 +60,10 @@ public class EmployeeService {
 				}
 				
 			case("viewEmployees.employeeDo"):
-				ArrayList<EmployeeModel> list = getES().viewEmployees();
-				if(list != null) {
+				ArrayList<EmployeeModel> listE = getES().viewEmployees();
+				if(listE != null) {
 					LoggingTool.logDebug("VIEW EMPLOYEES SUCCESS");
-					String eList = gson.toJson(list);
+					String eList = gson.toJson(listE);
 					request.getServletContext().setAttribute("employeeList", eList);
 					return eList;
 				} else {
@@ -85,10 +85,10 @@ public class EmployeeService {
 			case("makeRequest.employeeDo"):
 				if(getES().makeRequest(request)) {
 					LoggingTool.logDebug("REQUEST CREATION SUCCESS");
-					return "html/main.html";
+					return "success";
 				} else {
 					LoggingTool.logError("REQUEST CREATION ERROR");
-					return "html/error.html";
+					return "error";
 				}
 			
 			case("approveRequest.employeeDo"):
@@ -98,6 +98,35 @@ public class EmployeeService {
 					return gson.toJson(r);
 				} else {
 					LoggingTool.logError("REQUEST APPROVAL ERROR");
+					return "fail";
+				}
+				
+			case("viewMyRequests.employeeDo"):
+				ArrayList<RequestModel> listR = getES().viewMyRequests(request);
+				if(listR != null) {
+					LoggingTool.logDebug("VIEW MY REQUESTS SUCCESS");
+					return gson.toJson(listR);
+				} else {
+					LoggingTool.logError("VIEW MY REQUESTS ERROR");
+					return "fail";
+				}
+			case("viewAllRequests.employeeDo"):
+				listR = getES().viewAllRequests(request);
+				if(listR != null) {
+					LoggingTool.logDebug("VIEW MY REQUESTS SUCCESS");
+					request.getServletContext().setAttribute("reqList", gson.toJson(listR));
+					return gson.toJson(listR);
+				} else {
+					LoggingTool.logError("VIEW MY REQUESTS ERROR");
+					return "fail";
+				}
+			case("viewTheirRequests.employeeDo"):
+				listR = getES().viewTheirRequests(request);
+				if (listR != null) {
+					LoggingTool.logDebug("VIEW THEIR REQUESTS SUCCESS");
+					return gson.toJson(listR);
+				} else {
+					LoggingTool.logError("VIEW THEIR REQUESTS ERROR");
 					return "fail";
 				}
 		}
@@ -123,13 +152,13 @@ public class EmployeeService {
 		String username = request.getParameter("username") == "" ? curr.getUsername() : request.getParameter("username");
 		String password = request.getParameter("password") == "" ? curr.getPassword() : request.getParameter("password");
 		int age = request.getParameter("age") == "" ? curr.getAge() : Integer.parseInt(request.getParameter("age"));
-		System.out.println(eid);
-		System.out.println(access);
-		System.out.println(name);
-		System.out.println(username);
-		System.out.println(password);
-		System.out.println(age);
-		
+//		System.out.println(eid);
+//		System.out.println(access);
+//		System.out.println(name);
+//		System.out.println(username);
+//		System.out.println(password);
+//		System.out.println(age);
+//		
 		EmployeeModel e = new EmployeeModel(eid, name, username, password, age, -1, access);
 		return EmployeeImpl.getEI().updateEmployee(e);
 	}
@@ -141,19 +170,30 @@ public class EmployeeService {
 		String requested = request.getParameter("requested");
 		String reason = request.getParameter("reason");
 		double amount = Double.parseDouble(request.getParameter("amount"));
-		RequestModel r = new RequestModel(-1, -1, curr.getE_id(), requested, null, reason, amount, 0);
+//		System.out.println(requested);
+//		System.out.println(reason);
+//		System.out.println(amount);
+		RequestModel r = new RequestModel(-1, -1, "", curr.getName(), curr.getE_id(), requested, null, reason, amount, 0);
 		return EmployeeImpl.getEI().makeRequest(r);
 	}
 	public RequestModel approveRequest(HttpServletRequest request) {
 		EmployeeModel curr = gson.fromJson((String)request.getServletContext().getAttribute("currUser"), EmployeeModel.class);
+//		System.out.println(request.getParameter("r_id"));
+//		System.out.println(request.getParameter("approve"));
 		int r_id = Integer.parseInt(request.getParameter("r_id"));
-		return EmployeeImpl.getEI().approveRequest(r_id, curr);
+		int approve = Integer.parseInt(request.getParameter("approve"));
+		return EmployeeImpl.getEI().approveRequest(r_id, approve, curr);
 	}
-	public String viewPendingRequests(EmployeeModel e) {
-		return EmployeeImpl.getEI().viewPendingRequests(e);
+	public ArrayList<RequestModel> viewMyRequests(HttpServletRequest request) {
+		EmployeeModel curr = gson.fromJson((String)request.getServletContext().getAttribute("currUser"), EmployeeModel.class);
+		return EmployeeImpl.getEI().viewMyRequests(curr.getE_id());
 	}
-	public String viewCompletedRequests(EmployeeModel e) {
-		return EmployeeImpl.getEI().viewCompletedRequests(e);
+	public ArrayList<RequestModel> viewAllRequests(HttpServletRequest request) {
+		return EmployeeImpl.getEI().viewAllRequests();
+	}
+	public ArrayList<RequestModel> viewTheirRequests(HttpServletRequest request) {
+		int e_id = Integer.parseInt(request.getParameter("e_id"));
+		return EmployeeImpl.getEI().viewMyRequests(e_id);
 	}
 
 }

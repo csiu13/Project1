@@ -1,55 +1,12 @@
 window.onload = () => {
-	//console.log("hello");
     let xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
 		if(xhr.readyState === 4 && xhr.status === 200) {
-			let table = document.getElementById("employee-table");
-			let employees = JSON.parse(xhr.responseText);
-			
-			for(let emp in employees) {
-				let row = document.createElement('tr');
-				row.id = emp;
-				row.addEventListener('click', createRequestTable);
-				for(let key in employees[emp]) {
-					let cell = document.createElement('td');
-					switch(key) {
-						case "e_id":
-							cell.id = emp+"-eid";
-						case "name":
-						case "username":
-						case "age":
-							cell.innerHTML = employees[emp][key];
-							row.appendChild(cell);
-							break;
-						case "access":
-							cell.innerHTML = employees[emp][key] == 1 ? "Manager" : "Employee";
-							row.appendChild(cell);
-							break;
-						default:
-							continue;
-					}
-				}
-				let requestTable = document.createElement('td');
-				requestTable.id = emp + "-rTable";
-				row.appendChild(requestTable);
-				table.appendChild(row);
-			}
-		}
-	}
-	xhr.open('get', '../viewEmployees.employeeDo', true);
-	xhr.send();
-}
-
-function createRequestTable(event) {
-	var index = event.target.parentNode.id;
-	let xhr = new XMLHttpRequest();
-	xhr.onreadystatechange = function() {
-		if(xhr.readyState === 4 && xhr.status === 200) {
-			console.log(index);
-            let table = document.getElementById(index+"-rTable");
+            let table = document.getElementById("request-table");
             //console.log(xhr.responseText);
 			let requests = JSON.parse(xhr.responseText);
-			if(requests.length === 0) {
+            //console.log(requests);
+            if(requests.length === 0) {
 				alert("No requests found.");
 				return;
 			}
@@ -114,11 +71,9 @@ function createRequestTable(event) {
 			}
 		}
 	}
-	let link = document.getElementById(index+"-eid").innerHTML;
-	xhr.open('get', '../viewTheirRequests.employeeDo?e_id=' + link, true);
+	xhr.open('get', '../viewMyRequests.employeeDo', true);
 	xhr.send();
 }
-
 
 function formatDate(date) {
     if(date === "none") {

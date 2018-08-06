@@ -12,12 +12,16 @@ function createRequest(event) {
     if(reason === "" || amount === "") {
         alert("Please fill out all of the fields!");
     } else {
-        let currPerson = JSON.parse(xhr.responseText);
         let requested = JSON.stringify(new Date());
-        amount = parseFloat(amount).toFixed(2);
+        amount = parseFloat(amount);
+        console.log(amount.toFixed(2));
         let xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
-            console.log(xhr.responeText);
+            if(xhr.responseText === "success") {
+                alert("Request successully created!");
+                document.getElementById("reason").value = "";
+                document.getElementById("amount").value = 0;
+            }
         }
         let link = `requested=${requested}&reason=${reason}&amount=${amount}`;
         xhr.open('get', '../makeRequest.employeeDo?' + link, true);

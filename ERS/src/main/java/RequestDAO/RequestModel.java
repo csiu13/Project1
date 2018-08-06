@@ -4,6 +4,8 @@ public class RequestModel {
 	
 	private int r_id;
 	private int m_id;
+	private String manager;
+	private String employee;
 	private int e_id;
 	private String requested;
 	private String completed;
@@ -17,25 +19,45 @@ public class RequestModel {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	/**
 	 * @param r_id
 	 * @param m_id
+	 * @param manager
+	 * @param employee
 	 * @param e_id
 	 * @param requested
 	 * @param completed
+	 * @param reason
 	 * @param amount
 	 * @param status
 	 */
-	public RequestModel(int r_id, int m_id, int e_id, String requested, String completed, String reason, double amount, int status) {
+	public RequestModel(int r_id, int m_id, String manager, String employee, int e_id, String requested,
+			String completed, String reason, double amount, int status) {
 		super();
 		this.r_id = r_id;
 		this.m_id = m_id;
+		this.manager = manager;
+		this.employee = employee;
 		this.e_id = e_id;
 		this.requested = requested;
 		this.completed = completed;
 		this.reason = reason;
 		this.amount = amount;
 		this.status = status;
+	}
+
+	public String getManager() {
+		return manager;
+	}
+	public void setManager(String manager) {
+		this.manager = manager;
+	}
+	public String getEmployee() {
+		return employee;
+	}
+	public void setEmployee(String employee) {
+		this.employee = employee;
 	}
 	public int getR_id() {
 		return r_id;
