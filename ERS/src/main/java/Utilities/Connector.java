@@ -18,7 +18,7 @@ public class Connector {
 			// in  = new FileInputStream("C:\\my_git_ripos\\christopher_siu_project1\\ERS\\src\\main\\resources\\connections.properties");
 			// props.load(in);
 			
-			// Class.forName("oracle.jdbc.driver.OracleDriver");
+			Class.forName("oracle.jdbc.driver.OracleDriver");
 			
 			Connection conn = null;
 			// String endpoint = props.getProperty("jdbc.url");
