@@ -5,6 +5,7 @@ window.onload = () => {
 }
 function checkLogin(e) {
     console.log(e);
+    console.log('ladsjkf');
     //console.log("checkLogin");
     e.preventDefault();
     let xhr = new XMLHttpRequest();
