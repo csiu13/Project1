@@ -5,7 +5,6 @@ window.onload = () => {
 }
 function checkLogin(e) {
     console.log(e);
-    console.log('ladsjkf');
     //console.log("checkLogin");
     e.preventDefault();
     let xhr = new XMLHttpRequest();
@@ -35,7 +34,7 @@ function checkLogin(e) {
             	        }
             	    }
             	}
-            	let date = JSON.stringify(new Date());
+                let date = JSON.stringify(new Date());
             	xhr.open('get', '../*.employeeDo?check=true&date='+date, true);
             	xhr.send();
             }
