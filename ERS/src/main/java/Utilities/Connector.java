@@ -31,7 +31,7 @@ public class Connector {
 			return conn;
 		} catch(Exception e) {
 			e.printStackTrace();
-		} //finally {
+		} finally {
 			try {
 				in.close();
 			} catch (IOException e) {
