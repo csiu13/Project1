@@ -3,7 +3,7 @@ window.onload = () => {
 		checkLogin(event);
 	}
 }
-// function checkLogin(e) {
+function checkLogin(e) {
 //     console.log(e);
     //console.log("checkLogin");
     e.preventDefault();
