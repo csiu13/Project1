@@ -19,7 +19,7 @@ public class Connector {
 			// props.load(in);
 			
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			
+			System.out.println("asdf");
 			Connection conn = null;
 			// String endpoint = props.getProperty("jdbc.url");
 			// //System.out.println(endpoint);
