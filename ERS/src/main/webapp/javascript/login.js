@@ -3,9 +3,8 @@ window.onload = () => {
 		checkLogin(event);
 	}
 }
-function checkLogin(e) {
-    console.log(e);
-    console.log("i changed");
+// function checkLogin(e) {
+//     console.log(e);
     //console.log("checkLogin");
     e.preventDefault();
     let xhr = new XMLHttpRequest();
